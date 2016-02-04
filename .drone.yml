@@ -1,12 +1,18 @@
 clone:
   tags: true
 build:
-  image: golang:1.5
-  pull: true
-  commands:
-    - go get golang.org/x/tools/cmd/vet
-    - go get golang.org/x/tools/cmd/goimports
-    - go get
-    - make all
-    - govc/build.sh
+  test:
+    image: golang:1.5
+    commands:
+      - git clone https://github.com/sstephenson/bats.git
+      - cd bats && ./install.sh /usr/local
+  export:
+    image: golang:1.5
+    pull: true
+    commands:
+      - go get golang.org/x/tools/cmd/vet
+      - go get golang.org/x/tools/cmd/goimports
+      - go get
+      - make all
+      - govc/build.sh
 
